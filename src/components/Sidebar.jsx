@@ -1,5 +1,5 @@
 import { navItems } from "../data";
-import profileImage from "../assets/images/sanawar-profile.jpg";
+import profileImage from "../assets/images/profile2.png";
 
 export default function Sidebar({ activeSection, onNavigate, collapsed, onToggleCollapse }) {
   return (

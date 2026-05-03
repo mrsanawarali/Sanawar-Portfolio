@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { navItems } from "../data";
-import profileImage from "../assets/images/sanawar-profile.jpg";
+import profileImage from "../assets/images/profile2.png";
 
 export default function MobileNav({ activeSection, onNavigate }) {
   const [open, setOpen] = useState(false);

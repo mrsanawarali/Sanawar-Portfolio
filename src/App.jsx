@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { FaFontAwesome } from "react-icons/fa6";
+import { useEffect, useRef, useState } from "react";
+import { FaFontAwesome, FaCode } from "react-icons/fa6";
 import { FcBusinessman, FcCalendar, FcGlobe, FcGraduationCap } from "react-icons/fc";
+import { SiFlutter } from "react-icons/si";
 import MobileNav from "./components/MobileNav";
 import Sidebar from "./components/Sidebar";
 import { personalInfo, socialLinks } from "./data";
 import graduationCapIcon from "./assets/images/graduation-cap.png";
-import profileImage from "./assets/images/sanawar-profile.jpg";
+import profileImage from "./assets/images/profile2.png";
 
 const typingText = "Consistency Makes a Man Perfect in Their Skill Set. - Mr. Sanawar Ali";
 const PHONE_ICON_URL = "https://seekicon.com/free-icon-download/phone_3.svg";
@@ -98,6 +99,17 @@ function SocialBrandIcon({ icon }) {
     );
   }
 
+  if (icon === "facebook") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#1877F2]" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M13.5 22v-8h2.69l.41-3.11h-3.1V8.92c0-.9.25-1.51 1.55-1.51h1.65V4.63c-.29-.04-1.3-.13-2.47-.13-2.45 0-4.13 1.49-4.13 4.22v2.17H7v3.11h2.1v8h4.4Z"
+        />
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#FF0000]" aria-hidden="true">
       <path
@@ -160,7 +172,52 @@ export default function App() {
   const [contactErrors, setContactErrors] = useState({});
   const [contactSubmitMessage, setContactSubmitMessage] = useState("");
   const [animatedSkillValues, setAnimatedSkillValues] = useState(SKILLS.map(() => 0));
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [cursorTrailPos, setCursorTrailPos] = useState({ x: 0, y: 0 });
+  const mouseTargetRef = useRef({ x: 0, y: 0 });
+  const cursorTrailRef = useRef({ x: 0, y: 0 });
+  const [isCursorHovering, setIsCursorHovering] = useState(false);
   const typedTagline = useTypingEffect(typingText);
+
+  useEffect(() => {
+    const updateMousePosition = (e) => {
+      const nextPosition = { x: e.clientX, y: e.clientY };
+      mouseTargetRef.current = nextPosition;
+      setMousePos(nextPosition);
+    };
+    window.addEventListener("mousemove", updateMousePosition);
+
+    const handleMouseOver = (e) => {
+      if (e.target.closest("button, a, input, textarea, .cursor-pointer")) {
+        setIsCursorHovering(true);
+      } else {
+        setIsCursorHovering(false);
+      }
+    };
+    window.addEventListener("mouseover", handleMouseOver);
+
+    const animateCursorTrail = () => {
+      cursorTrailRef.current = {
+        x: cursorTrailRef.current.x + (mouseTargetRef.current.x - cursorTrailRef.current.x) * 0.16,
+        y: cursorTrailRef.current.y + (mouseTargetRef.current.y - cursorTrailRef.current.y) * 0.16,
+      };
+      setCursorTrailPos({ ...cursorTrailRef.current });
+    };
+
+    let frameId;
+    const tick = () => {
+      animateCursorTrail();
+      frameId = requestAnimationFrame(tick);
+    };
+
+    frameId = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("mousemove", updateMousePosition);
+      window.removeEventListener("mouseover", handleMouseOver);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsPageLoading(false), PAGE_LOADER_MS + 120);
@@ -298,18 +355,28 @@ export default function App() {
             <section id="home" className="relative overflow-hidden px-6 pb-8 pt-24 sm:px-8 lg:min-h-[54vh] lg:px-14 lg:pt-16">
               <div className="pointer-events-none absolute right-[-180px] top-[-220px] h-[520px] w-[520px] rounded-full bg-primary/20 blur-[130px]" />
 
-              <div className="relative z-10 grid items-center gap-8 xl:grid-cols-[260px_1fr]">
-                <div className="flex justify-center xl:justify-start">
-                  <div className="profile-glow">
-                    <img
-                      src={profileImage}
-                      alt="Mr. Sanawar Ali profile"
-                      className="h-56 w-56 rounded-full border-[3px] border-primary object-cover object-[center_22%] sm:h-64 sm:w-64"
-                    />
+              <div className="relative z-10 grid items-center gap-8 xl:grid-cols-[1fr_260px]">
+                <div className="order-2 flex justify-center xl:order-2 xl:justify-end">
+                  <div className="relative">
+                    <div className="orbit-circle pointer-events-none">
+                      <div className="orbit-icon orbit-icon-1">
+                        <FaCode className="h-5 w-5 text-[#009FA0]" />
+                      </div>
+                      <div className="orbit-icon orbit-icon-2">
+                        <SiFlutter className="h-5 w-5 text-[#54C5F8]" />
+                      </div>
+                    </div>
+                    <div className="profile-glow relative z-10">
+                      <img
+                        src={profileImage}
+                        alt="Mr. Sanawar Ali profile"
+                        className="h-56 w-56 rounded-full border-[3px] border-primary object-cover object-[center_22%] sm:h-64 sm:w-64"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div>
+                <div className="order-1 xl:order-1">
                   <span className="mb-5 inline-flex rounded-lg bg-primary px-5 py-2 text-sm font-black text-background-dark sm:text-base">
                     Assalamu Alaikum
                   </span>
@@ -598,6 +665,15 @@ export default function App() {
           Copyright 2026 Mr. SANAWAR ALI. All Rights Reserved.
         </footer>
       </main>
+
+      <div
+        className={`custom-cursor-ring hidden lg:block ${isCursorHovering ? "custom-cursor-hover" : ""}`}
+        style={{ left: `${mousePos.x}px`, top: `${mousePos.y}px` }}
+      />
+      <div
+        className={`custom-cursor-dot hidden lg:block ${isCursorHovering ? "custom-cursor-dot-hover" : ""}`}
+        style={{ left: `${cursorTrailPos.x}px`, top: `${cursorTrailPos.y}px` }}
+      />
     </div>
   );
 }

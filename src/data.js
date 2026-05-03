@@ -18,8 +18,8 @@ export const personalInfo = [
 ];
 
 export const socialLinks = [
-  { name: "LinkedIn", icon: "linkedin", href: "#" },
-  { name: "GitHub", icon: "github", href: "#" },
-  { name: "Twitter", icon: "twitter", href: "#" },
-  { name: "YouTube", icon: "youtube", href: "#" },
+  { name: "LinkedIn", icon: "linkedin", href: "https://www.linkedin.com/in/sanawar-ali-92developer/" },
+  { name: "GitHub", icon: "github", href: "https://github.com/mrsanawarali" },
+  { name: "Facebook", icon: "facebook", href: "https://www.facebook.com/mr.sanawarali/" },
+  { name: "YouTube", icon: "youtube", href: "https://www.youtube.com/@tipstocrackcss" },
 ];
