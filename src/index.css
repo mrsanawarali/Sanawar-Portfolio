@@ -263,38 +263,26 @@ body {
 .orbit-badge {
   position: absolute;
   top: 50%;
-  right: -8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.35rem 0.8rem 0.35rem 0.4rem;
-  border: 1px solid rgba(0, 159, 160, 0.34);
-  background: rgba(13, 25, 28, 0.92);
-  border-radius: 50%;
+  right: -16px;
   transform: translateY(-50%);
-  box-shadow: 0 0 14px rgba(0, 159, 160, 0.42), 0 0 0 1px rgba(0, 159, 160, 0.06) inset;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
   pointer-events: auto;
 }
 
-.orbit-badge:hover {
-  transform: translateY(-50%) scale(1.08);
-  border-color: rgba(0, 159, 160, 0.75);
-  background: rgba(10, 35, 38, 0.98);
-  box-shadow: 0 0 18px rgba(0, 159, 160, 0.56), 0 0 0 1px rgba(0, 159, 160, 0.1) inset;
+.orbit-badge:hover .orbit-badge-icon {
+  transform: scale(1.15);
 }
 
 .orbit-badge-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
   border-radius: 9999px;
-  background: rgba(26, 43, 46, 0.96);
-  border: 1px solid rgba(0, 159, 160, 0.32);
-  box-shadow: 0 0 10px rgba(0, 159, 160, 0.22);
+  background: transparent;
+  border: none;
+  transition: transform 0.25s ease;
   animation: counterSpin 30s linear infinite;
 }
 
@@ -371,13 +359,12 @@ body {
   }
 
   .orbit-badge {
-    right: -4px;
-    padding: 0.28rem 0.62rem 0.28rem 0.3rem;
+    right: -12px;
   }
 
   .orbit-badge-icon {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
   }
 
   .orbit-tooltip {
