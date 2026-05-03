@@ -450,12 +450,30 @@ export default function App() {
                 </div>
 
                 <div className="flex justify-center xl:justify-end">
-                  <div className="profile-glow">
+                  <div className="profile-glow relative">
                     <img
                       src={profileImage}
                       alt="Mr. Sanawar Ali profile"
-                      className="h-64 w-64 rounded-full border-[3px] border-primary object-cover object-[center_22%] sm:h-[300px] sm:w-[300px]"
+                      className="h-64 w-64 rounded-full border-[3px] border-primary object-cover object-[center_22%] transition-all duration-300 hover:scale-95 cursor-pointer sm:h-[300px] sm:w-[300px]"
                     />
+                    <div className="orbit-track-sm" aria-hidden="true">
+                      <div className="orbit-rotator-sm">
+                        <div className="orbit-badge-sm orbit-badge-sm-web pointer-events-auto">
+                          <span className="orbit-badge-icon-sm" aria-hidden="true">
+                            <FaCode className="h-3 w-3 text-[#009FA0]" />
+                          </span>
+                          <span className="orbit-tooltip-sm">Frontend Developer</span>
+                        </div>
+                      </div>
+                      <div className="orbit-rotator-sm orbit-rotator-sm-alt">
+                        <div className="orbit-badge-sm orbit-badge-sm-flutter pointer-events-auto">
+                          <span className="orbit-badge-icon-sm" aria-hidden="true">
+                            <SiFlutter className="h-3 w-3 text-[#54C5F8]" />
+                          </span>
+                          <span className="orbit-tooltip-sm orbit-tooltip-sm-alt">Android App Developer</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

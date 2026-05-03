@@ -20,14 +20,32 @@ export default function Sidebar({ activeSection, onNavigate, collapsed, onToggle
       </div>
 
       <div className="mb-7 flex flex-col items-center">
-        <div className="profile-glow mb-4">
+        <div className="profile-glow mb-4 relative">
           <img
             src={profileImage}
             alt="Mr. Sanawar Ali"
-            className={`rounded-full border-2 border-primary object-cover object-[center_22%] transition-all duration-300 ${
+            className={`rounded-full border-2 border-primary object-cover object-[center_22%] transition-all duration-300 hover:scale-95 cursor-pointer ${
               collapsed ? "size-14" : "size-24"
             }`}
           />
+          <div className="orbit-track-sm" aria-hidden="true">
+            <div className="orbit-rotator-sm">
+              <div className="orbit-badge-sm orbit-badge-sm-web pointer-events-auto">
+                <span className="orbit-badge-icon-sm" aria-hidden="true">
+                  <svg className="h-3 w-3 text-[#009FA0]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                </span>
+                <span className="orbit-tooltip-sm">Frontend Developer</span>
+              </div>
+            </div>
+            <div className="orbit-rotator-sm orbit-rotator-sm-alt">
+              <div className="orbit-badge-sm orbit-badge-sm-flutter pointer-events-auto">
+                <span className="orbit-badge-icon-sm" aria-hidden="true">
+                  <svg className="h-3 w-3 text-[#54C5F8]" fill="currentColor" viewBox="0 0 24 24"><path d="M15 1H3c-1.1 0-2 .9-2 2v13h2V3h12V1zm4 4H7c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-1 15H8V7h10v13z"/></svg>
+                </span>
+                <span className="orbit-tooltip-sm orbit-tooltip-sm-alt">Android App Developer</span>
+              </div>
+            </div>
+          </div>
         </div>
         <h1
           className={`text-center font-bold tracking-tight text-slate-100 transition-all duration-300 ${
