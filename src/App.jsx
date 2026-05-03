@@ -330,15 +330,21 @@ export default function App() {
                         alt="Mr. Sanawar Ali profile"
                         className="h-56 w-56 rounded-full border-[3px] border-primary object-cover object-[center_22%] sm:h-64 sm:w-64"
                       />
-                      <div className="orbit-track pointer-events-none" aria-hidden="true">
+                      <div className="orbit-track" aria-hidden="true">
                         <div className="orbit-rotator">
-                          <div className="orbit-icon">
-                            <FaCode className="h-5 w-5 text-[#009FA0]" />
+                          <div className="orbit-badge orbit-badge-web pointer-events-auto">
+                            <span className="orbit-badge-icon" aria-hidden="true">
+                              <FaCode className="h-5 w-5 text-[#009FA0]" />
+                            </span>
+                            <span className="orbit-tooltip">Frontend Developer</span>
                           </div>
                         </div>
                         <div className="orbit-rotator orbit-rotator-alt">
-                          <div className="orbit-icon">
-                            <SiFlutter className="h-5 w-5 text-[#54C5F8]" />
+                          <div className="orbit-badge orbit-badge-flutter pointer-events-auto">
+                            <span className="orbit-badge-icon" aria-hidden="true">
+                              <SiFlutter className="h-5 w-5 text-[#54C5F8]" />
+                            </span>
+                            <span className="orbit-tooltip orbit-tooltip-alt">Android App Developer</span>
                           </div>
                         </div>
                       </div>
