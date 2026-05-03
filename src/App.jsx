@@ -172,34 +172,21 @@ export default function App() {
   const [contactErrors, setContactErrors] = useState({});
   const [contactSubmitMessage, setContactSubmitMessage] = useState("");
   const [animatedSkillValues, setAnimatedSkillValues] = useState(SKILLS.map(() => 0));
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [cursorTrailPos, setCursorTrailPos] = useState({ x: 0, y: 0 });
-  const mouseTargetRef = useRef({ x: 0, y: 0 });
-  const cursorTrailRef = useRef({ x: 0, y: 0 });
-  const [isCursorHovering, setIsCursorHovering] = useState(false);
+  const [cursorTrailPos, setCursorTrailPos] = useState({ x: -100, y: -100 });
+  const mouseTargetRef = useRef({ x: -100, y: -100 });
+  const cursorTrailRef = useRef({ x: -100, y: -100 });
   const typedTagline = useTypingEffect(typingText);
 
   useEffect(() => {
     const updateMousePosition = (e) => {
-      const nextPosition = { x: e.clientX, y: e.clientY };
-      mouseTargetRef.current = nextPosition;
-      setMousePos(nextPosition);
+      mouseTargetRef.current = { x: e.clientX, y: e.clientY };
     };
     window.addEventListener("mousemove", updateMousePosition);
 
-    const handleMouseOver = (e) => {
-      if (e.target.closest("button, a, input, textarea, .cursor-pointer")) {
-        setIsCursorHovering(true);
-      } else {
-        setIsCursorHovering(false);
-      }
-    };
-    window.addEventListener("mouseover", handleMouseOver);
-
     const animateCursorTrail = () => {
       cursorTrailRef.current = {
-        x: cursorTrailRef.current.x + (mouseTargetRef.current.x - cursorTrailRef.current.x) * 0.16,
-        y: cursorTrailRef.current.y + (mouseTargetRef.current.y - cursorTrailRef.current.y) * 0.16,
+        x: cursorTrailRef.current.x + (mouseTargetRef.current.x - cursorTrailRef.current.x) * 0.12,
+        y: cursorTrailRef.current.y + (mouseTargetRef.current.y - cursorTrailRef.current.y) * 0.12,
       };
       setCursorTrailPos({ ...cursorTrailRef.current });
     };
@@ -215,7 +202,6 @@ export default function App() {
     return () => {
       cancelAnimationFrame(frameId);
       window.removeEventListener("mousemove", updateMousePosition);
-      window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
 
@@ -263,27 +249,7 @@ export default function App() {
     }, PAGE_LOADER_MS);
   };
 
-  const handleContactClick = () => {
-    if (activeSection !== "home") {
-      setIsPageLoading(true);
-      setTimeout(() => {
-        setActiveSection("home");
-        setTimeout(() => {
-          const followSection = document.getElementById("follow-me");
-          if (followSection) {
-            followSection.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }, 80);
-        setIsPageLoading(false);
-      }, PAGE_LOADER_MS);
-      return;
-    }
-
-    const followSection = document.getElementById("follow-me");
-    if (followSection) {
-      followSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const handleContactClick = () => scrollToSection("contact");
 
   const handleResumeDownload = () => {
     const link = document.createElement("a");
@@ -358,20 +324,24 @@ export default function App() {
               <div className="relative z-10 grid items-center gap-8 xl:grid-cols-[1fr_260px]">
                 <div className="order-2 flex justify-center xl:order-2 xl:justify-end">
                   <div className="relative">
-                    <div className="orbit-circle pointer-events-none">
-                      <div className="orbit-icon orbit-icon-1">
-                        <FaCode className="h-5 w-5 text-[#009FA0]" />
-                      </div>
-                      <div className="orbit-icon orbit-icon-2">
-                        <SiFlutter className="h-5 w-5 text-[#54C5F8]" />
-                      </div>
-                    </div>
                     <div className="profile-glow relative z-10">
                       <img
                         src={profileImage}
                         alt="Mr. Sanawar Ali profile"
                         className="h-56 w-56 rounded-full border-[3px] border-primary object-cover object-[center_22%] sm:h-64 sm:w-64"
                       />
+                      <div className="orbit-track pointer-events-none" aria-hidden="true">
+                        <div className="orbit-rotator">
+                          <div className="orbit-icon">
+                            <FaCode className="h-5 w-5 text-[#009FA0]" />
+                          </div>
+                        </div>
+                        <div className="orbit-rotator orbit-rotator-alt">
+                          <div className="orbit-icon">
+                            <SiFlutter className="h-5 w-5 text-[#54C5F8]" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -667,11 +637,7 @@ export default function App() {
       </main>
 
       <div
-        className={`custom-cursor-ring hidden lg:block ${isCursorHovering ? "custom-cursor-hover" : ""}`}
-        style={{ left: `${mousePos.x}px`, top: `${mousePos.y}px` }}
-      />
-      <div
-        className={`custom-cursor-dot hidden lg:block ${isCursorHovering ? "custom-cursor-dot-hover" : ""}`}
+        className="custom-cursor-trail hidden lg:block"
         style={{ left: `${cursorTrailPos.x}px`, top: `${cursorTrailPos.y}px` }}
       />
     </div>

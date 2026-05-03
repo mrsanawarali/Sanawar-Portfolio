@@ -41,7 +41,7 @@ export default function Sidebar({ activeSection, onNavigate, collapsed, onToggle
             collapsed ? "max-h-0 max-w-0 overflow-hidden opacity-0" : "mt-2 max-h-20 text-[0.82rem] leading-5 text-slate-400 opacity-100"
           }`}
         >
-          Mobile Application Developer
+          Mobile Application Developer | AI & Frontend Developer
         </p>
       </div>
 

@@ -56,7 +56,7 @@ export default function MobileNav({ activeSection, onNavigate }) {
               />
             </div>
             <h2 className="text-center text-[2rem] font-bold leading-none text-slate-100">Mr. Sanawar Ali</h2>
-            <p className="mt-2 text-center text-[0.82rem] leading-5 text-slate-400">Mobile Application Developer</p>
+            <p className="mt-2 text-center text-[0.82rem] leading-5 text-slate-400">Mobile Application Developer | AI & Frontend Developer</p>
           </div>
 
           <nav className="space-y-1.5">
